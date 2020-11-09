@@ -5,16 +5,21 @@ return [
         0 => 'Inactive',
         1 => 'Active'
     ],
+
     'DEFAULT_PASSWORD'=>'Sm@2020',
+    
     'date_format' => [
         'input' => 'd F, Y',
         'output' => 'd/m/Y',
         'internal' => 'Y-m-d',
     ],
+    
     'GENDER_ENUM' => ['0' => 'Male', '1' => 'Female', '2' => 'Other'],
+    
     'CODE_PREFIX'=>[
         'Organization'=>'ORG'
     ],
+    
     'CLASSES'=>[
         0=>'Play School',
         1=>'LKG',
