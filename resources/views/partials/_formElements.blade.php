@@ -7,7 +7,7 @@ $required = !empty($is_required) ? 'required ': '';
     <label for="{{ $field_name }}">{{ $pname }}</label>
     <div class="controls">
         <input type="text" id="{{ $field_name }}" class="form-control" {{ $required }}
-        {{ $is_disabled ?? '' }} placeholder="{{ $pname }}" name="{{ $field_name }}" value="{{ $val ?? old('$field_name') }}">
+        {{ $is_disabled ?? '' }} placeholder="{{ $pname }}" name="{{ $field_name }}" value="{{ old('$field_name') ?? !empty($val) ? $val : '' }}">
         <span class="help-block">{{ $errors->first($field_name) }}</span>
     </div>
 </div>
@@ -60,7 +60,7 @@ $required = !empty($is_required) ? 'required ': '';
 @elseif($type == 'select' && !empty($field_name) && !empty($pname) && !empty($options))
 <label for="{{ $field_name }}">{{ $pname }}</label>
 <fieldset class="form-group">
-    <select class="form-control {{ isset($is_multiple) ? 'select2' : '' }}" id="{{ $field_name }}" {{ $is_multiple ?? '' }} name="{{ $field_name }}{{ isset($is_multiple) ? '[]' : '' }}">
+    <select class="form-control {{ isset($is_multiple) ? 'select2' : '' }}" {{ $required }} id="{{ $field_name }}" {{ $is_multiple ?? '' }} name="{{ $field_name }}{{ isset($is_multiple) ? '[]' : '' }}">
         @if(!isset($val) && !isset($is_multiple))
             <option selected disabled>Select {{ $pname }}</option>
         @endif
@@ -77,12 +77,13 @@ $required = !empty($is_required) ? 'required ': '';
 
     </select>
 </fieldset>
+<span class="help-block">{{ $errors->first($field_name) }}</span>
 
 @elseif($type == 'textarea' && !empty($field_name) && !empty($pname) && !empty($length) && !empty($rows))
 <label for="{{ $field_name }}">{{ $pname }}</label>
 <fieldset class="form-label-group mb-0">
-    <textarea data-length="{{ $length }}" class="form-control char-textarea" name="{{ $field_name }}" id="textarea-counter" rows="{{ $rows }}" placeholder="{{ $pname }}">{{ $val ?? old('$field_name') }}</textarea>
-    <!-- <label for="textarea-counter">{{ $pname }}</label> -->
+    <textarea data-length="{{ $length }}" class="form-control char-textarea" {{ $required }} name="{{ $field_name }}" id="textarea-counter" rows="{{ $rows }}" placeholder="{{ $pname }}">{{ $val ?? old('$field_name') }}</textarea>
 </fieldset>
 <small class="counter-value float-right"><span class="char-count">0</span> / {{ $length }} </small>
+<span class="help-block">{{ $errors->first($field_name) }}</span>
 @endif

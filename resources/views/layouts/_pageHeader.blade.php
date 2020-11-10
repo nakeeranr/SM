@@ -15,6 +15,7 @@
 || Route::currentRouteName() == 'roles.edit'
 || Route::currentRouteName() == 'admin-users.index'
 || Route::currentRouteName() == 'organizations.index'
+|| Route::currentRouteName() == 'roles.index'
 )
 
 <!-- BEGIN: Vendor CSS-->
@@ -25,14 +26,16 @@
 || Route::currentRouteName() == 'admin-users.edit'
 || Route::currentRouteName() == 'organizations.create'
 || Route::currentRouteName() == 'organizations.edit'
+|| Route::currentRouteName() == 'roles.create'
+|| Route::currentRouteName() == 'roles.edit'
 )
 <link rel="stylesheet" type="text/css" href="{{ asset('vendors/css/pickers/pickadate/pickadate.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/plugins/forms/validation/form-validation.css') }}">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
-@elseif(Route::currentRouteName() == 'roles.create' 
+<!-- @elseif(Route::currentRouteName() == 'roles.create' 
 )
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
 
 
 @endif

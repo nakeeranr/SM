@@ -49,6 +49,8 @@ Route::currentRouteName() == 'permissions.index'
 	</script>
 @elseif(Route::currentRouteName() == 'admin-users.create'
 || Route::currentRouteName() == 'admin-users.edit'
+|| Route::currentRouteName() == 'roles.create'
+|| Route::currentRouteName() == 'roles.edit'
 )
 	<script src="{{ asset('vendors/js/pickers/pickadate/picker.js') }}"></script>
 	<script src="{{ asset('vendors/js/pickers/pickadate/picker.date.js') }}"></script>
@@ -59,5 +61,5 @@ Route::currentRouteName() == 'permissions.index'
 	<script src="{{ asset('js/scripts/pickers/dateTime/pick-a-datetime.min.js') }}"></script>
 	<script src="{{ asset('vendors/js/forms/validation/jqBootstrapValidation.js') }}"></script>
 	<script src="{{ asset('js/scripts/forms/validation/form-validation.js') }}"></script>
-	{{-- <script src="{{ asset('vendors/js/forms/validation/jquery.validate.min.js') }}"></script> --}}
+	<script src="{{ asset('vendors/js/forms/validation/jquery.validate.min.js') }}"></script>
 @endif

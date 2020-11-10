@@ -39,14 +39,15 @@
                </div>
                <div class="card-content">
                   <div class="card-body">
-                     <form class="form" action="{{ route('roles.store') }}" method="POST" id="permission-form">
+                     <form class="form" action="{{ route('roles.store') }}" method="POST" id="permission-form" novalidate>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-body">
                            <div class="row">
                               <!-- include partial and pass variable for form elements -->
                               <div class="col-md-6 col-12">
                                  @include('partials._formElements', [ 'type' => 'text',
-                                 'field_name' => 'name', 'pname' => 'Name'])
+                                 'field_name' => 'name', 'pname' => 'Name',
+                                 'is_required' => true ])
                               </div>
                               <div class="col-md-4 col-12">
                                  
@@ -58,14 +59,16 @@
                                     'id' => 'customRadio4',
                                     'pname' => 'Active',
                                     'val' => 1,
-                                    'is_checked' => 'checked'
+                                    'is_checked' => 'checked',
+                                    'is_required' => true
                                     ])
                                     @include('partials._formElements', [  'type' => 'radio',
                                     'field_name' => 'status',
                                     'id' => 'customRadio5',
                                     'pname' => 'Inactive',
                                     'val' => 0,
-                                    'is_checked' => ''
+                                    'is_checked' => '',
+                                    'is_required' => true
                                     ])
                                  </ul>
                                  <span class="help-block">{{ $errors->first('status') }}</span>
@@ -75,7 +78,8 @@
                                  'field_name' => 'description',
                                  'pname' => 'Description',
                                  'length' => 250,
-                                 'rows' => 3
+                                 'rows' => 3,
+                                 'is_required' => true
                                  ])
                               </div>
                               <div class="col-md-12 col-12">
@@ -83,7 +87,8 @@
                                  'field_name' => 'permissions',
                                  'pname' => 'Permissions',
                                  'options' => $permissions,
-                                 'is_multiple' => 'multiple=multiple'
+                                 'is_multiple' => 'multiple=multiple',
+                                 'is_required' => true
                                  ])
                               </div>
                               <div class="col-sm-12 d-flex justify-content-end">
