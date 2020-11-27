@@ -149,6 +149,16 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->role->delete($id);
+            return redirect()->route('roles.index')->with([
+                'alertType' => 'success',
+                'alertMessage' => 'Role Deleted Successfully.']);
+        } catch (\Exception $ex) {
+            logger($ex->getMessage());
+            return redirect()->route('roles.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Role Deletion Failed.']);
+        }
     }
 }

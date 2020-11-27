@@ -161,7 +161,16 @@ class AdminUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->adminUser->delete($id);
+            return redirect()->route('admin-users.index')->with(['alertType' => 'success',
+                'alertMessage' => 'Administrator Deleted Successfully.']);
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return redirect()->route('admin-users.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Administrator Deletion Failed.']);
+        }
     }
 
 }

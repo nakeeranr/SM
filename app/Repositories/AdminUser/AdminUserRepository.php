@@ -22,7 +22,6 @@ class AdminUserRepository implements AdminUserInterface
     public function getAll()
     {
         return $this->adminUser->all();
-
     }
 
     public function find($id)
@@ -32,12 +31,12 @@ class AdminUserRepository implements AdminUserInterface
 
     public function create($request)
     {
-
         $adminUser = $this->adminUser;
 
         $this->buildObject($request, $adminUser);
 
         $adminUser->created_by = Auth::id();
+
         $adminUser->updated_by = Auth::id();
 
         $user = $this->user->create($request);
@@ -80,6 +79,13 @@ class AdminUserRepository implements AdminUserInterface
 
         $adminUser->status = $request->has('status') ? $request->get('status') : null;
 
+    }
+
+    public function delete($id)
+    {
+        $adminUser = $this->adminUser->findorFail($id);
+
+        $adminUser->delete();
     }
 
 }

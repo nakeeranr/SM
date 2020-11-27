@@ -17,7 +17,6 @@ class OrganizationRepository implements OrganizationInterface
     public function getAll()
     {
         return $this->organization->with('classes')->get();
-        // return $this->organization->all();
     }
 
     public function find($id)
@@ -42,7 +41,7 @@ class OrganizationRepository implements OrganizationInterface
 
     public function update($request, $id)
     {
-    
+
         $organization = $this->organization->findorFail($id);
 
         $this->buildObject($request, $organization);
@@ -87,8 +86,16 @@ class OrganizationRepository implements OrganizationInterface
 
     public function getOrgWithClass($id)
     {
-
         return $this->organization->with('orgClass')->findOrFail($id);
+    }
+
+    public function delete($id)
+    {
+        $organization = $this->organization->findorFail($id);
+
+        $organization->classes()->detach();
+
+        $organization->delete();
     }
 
 }

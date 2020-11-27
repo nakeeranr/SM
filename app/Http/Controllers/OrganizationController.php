@@ -159,6 +159,18 @@ class OrganizationController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->organization->delete($id);
+            return redirect()->route('organizations.index')
+                ->with([
+                    'alertType' => 'success',
+                    'alertMessage' => 'Organization Deleted Successfully.']);
+
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return redirect()->back()->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Organization deletion failed.']);
+        }
     }
 }

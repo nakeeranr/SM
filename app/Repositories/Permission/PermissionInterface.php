@@ -13,4 +13,6 @@ interface PermissionInterface
     public function update($request,$id);
 
     public function getPermissionNames();
+
+    public function delete($id);
 }

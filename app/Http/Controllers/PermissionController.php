@@ -132,6 +132,14 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
-
+        try {
+            $this->permission->delete($id);
+            return redirect()->route('permissions.index')->with('success', 'Permission deleted successfully');
+        } catch (\Exception $ex) {
+            logger($ex->getMessage());
+            return redirect()->route('permissions.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Permission deletion failed']);
+        }
     }
 }
