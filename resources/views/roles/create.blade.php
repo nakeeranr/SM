@@ -26,20 +26,20 @@
                <div class="card-header">
                   <h4 class="card-title">Create Role</h4>
                   <div class="heading-elements">
-                      <ul class="list-inline mb-0">
-                          <!-- Back Option -->
-                          <a href="{{ route('roles.index') }}" class="tooltip-light pl-0" data-toggle="tooltip"
-                              data-placement="top" data-animation="true" data-original-title="Go back">
-                              <button class="btn btn-icon rounded-circle btn-primary glow">
-                              <i class="bx bx-left-arrow-circle"></i></button>
-                          </a>
-                          <!-- Back Option.End -->
-                      </ul>
+                     <ul class="list-inline mb-0">
+                        <!-- Back Option -->
+                        <a href="{{ route('roles.index') }}" class="tooltip-light pl-0" data-toggle="tooltip"
+                           data-placement="top" data-animation="true" data-original-title="Go back">
+                        <button class="btn btn-icon rounded-circle btn-primary glow">
+                        <i class="bx bx-left-arrow-circle"></i></button>
+                        </a>
+                        <!-- Back Option.End -->
+                     </ul>
                   </div>
                </div>
                <div class="card-content">
                   <div class="card-body">
-                     <form class="form" action="{{ route('roles.store') }}" method="POST" id="permission-form" novalidate>
+                     <form class="form form-horizontal" action="{{ route('roles.store') }}" method="POST" id="permission-form" novalidate>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-body">
                            <div class="row">
@@ -50,7 +50,6 @@
                                  'is_required' => true ])
                               </div>
                               <div class="col-md-4 col-12">
-                                 
                                  <label for="status">Status</label>
                                  <ul class="list-unstyled mb-0">
                                     <!-- <p>Status</p> -->
@@ -97,15 +96,12 @@
                                  'field_name' => 'submit',
                                  'pname' => 'Submit'
                                  ])
-                                 
                                  @include('partials._formElements', [ 'type' => 'button',
                                  'class' => 'btn btn-light-secondary mr-1 mb-1',
                                  'field_name' => 'reset',
                                  'pname' => 'Reset'
                                  ])
-                                 
                               </div>
-                              
                            </div>
                         </div>
                      </form>
@@ -118,10 +114,10 @@
    <!-- // Basic multiple Column Form section end -->
 </div>
 <script>
-$( document ).ready(function() {
-$(".select2").select2({
-placeholder: "Select Permission"
-});
-});
+   $( document ).ready(function() {
+      $(".select2").select2({
+         placeholder: "Select Permission"
+      });
+   });
 </script>
 @endsection

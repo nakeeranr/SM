@@ -32,8 +32,8 @@
                            <!-- Back Option -->
                            <a href="{{ route('roles.index') }}" class="tooltip-light pl-0" data-toggle="tooltip"
                               data-placement="top" data-animation="true" data-original-title="Go back">
-                              <button class="btn btn-icon rounded-circle btn-primary glow">
-                              <i class="bx bx-left-arrow-circle"></i></button>
+                           <button class="btn btn-icon rounded-circle btn-primary glow">
+                           <i class="bx bx-left-arrow-circle"></i></button>
                            </a>
                            <!-- Back Option.End -->
                         </ul>
@@ -41,7 +41,7 @@
                   </div>
                   <div class="card-content">
                      <div class="card-body">
-                        <form class="form" action="{{ route('roles.update',[$role->id]) }}" method="POST" id="role-form">
+                        <form class="form form-horizontal" action="{{ route('roles.update',[$role->id]) }}" method="POST" id="role-form" novalidate>
                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                            <input type="hidden" name="_method" value="PUT"/>
                            <div class="form-body">
@@ -49,10 +49,9 @@
                                  <!-- include partial and pass variable for form elements -->
                                  <div class="col-md-6 col-12">
                                     @include('partials._formElements', [ 'type' => 'text',
-                                    'field_name' => 'name', 'pname' => 'Name', 'val' => $role->name])
+                                    'field_name' => 'name', 'pname' => 'Name', 'val' => $role->name, 'is_required' => 1])
                                  </div>
                                  <div class="col-md-4 col-12">
-                                    
                                     <label for="status">Status</label>
                                     <ul class="list-unstyled mb-0">
                                        @include('partials._formElements', [  'type' => 'radio',
@@ -78,7 +77,8 @@
                                     'pname' => 'Description',
                                     'length' => 250,
                                     'rows' => 3,
-                                    'val' => $role->description
+                                    'val' => $role->description,
+                                    'is_required' => 1
                                     ])
                                  </div>
                                  <div class="col-md-12 col-12">
@@ -88,6 +88,7 @@
                                     'options' => $permissions,
                                     'is_multiple' => 'multiple=multiple',
                                     'val' => $selectedPermissions,
+                                    'is_required' => 1
                                     ])
                                  </div>
                                  <div class="col-sm-12 d-flex justify-content-end">
@@ -96,7 +97,6 @@
                                     'field_name' => 'submit',
                                     'pname' => 'Submit'
                                     ])
-                                    
                                     @include('partials._formElements', [ 'type' => 'button',
                                     'class' => 'btn btn-light-secondary mr-1 mb-1',
                                     'field_name' => 'reset',

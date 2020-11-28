@@ -77,8 +77,11 @@ $required = !empty($is_required) ? 'required ': '';
     @endif
 
    </select>
+   <div class="controls">
+      <span class="help-block">{{ $errors->first($field_name) }}</span>
+   </div>
 </fieldset>
-<span class="help-block">{{ $errors->first($field_name) }}</span>
+
 
 @elseif($type == 'textarea' && !empty($field_name) && !empty($pname) && !empty($length) && !empty($rows))
 <label for="{{ $field_name }}">{{ $pname }}</label>

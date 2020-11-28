@@ -89,7 +89,8 @@ class RoleController extends Controller
     {
         try {
             $role = $this->role->find($id);
-            return view('roles.show', compact('role'));
+            $permissions = $role->permissions->pluck('name')->toArray();
+            return view('roles.show', compact('role','permissions'));
         } catch (\Exception $ex) {
             logger($ex->getMessage());
             return redirect()->route('roles.index')->with([

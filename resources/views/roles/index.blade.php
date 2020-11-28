@@ -68,12 +68,21 @@
                                           <i class="bx bx-info-circle"></i></button>
                                        </a>
                                     <!-- info option.End -->
+                                    
                                     <!-- Edit Option -->
                                     <a href="{{ route('roles.edit', [$role->id]) }}" class="tooltip-light"  data-toggle="tooltip"  data-placement="top" data-animation="false" data-original-title="Edit">
                                        <button type="button" class="btn btn-icon rounded-circle btn-warning glow mr-1">
                                        <i class="bx bxs-pencil"></i></button>
                                     </a>
                                     <!-- Edit Option.End -->
+
+                                    <!-- Delete Option -->
+                                    <form method="POST" action="{{ route('roles.destroy',[$role->id]) }}" accept-charset="UTF-8" style="display:inline">
+                                    <input name="_method" type="hidden" value="DELETE"><input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                       <button class="btn btn-icon rounded-circle btn-danger glow mr-1 tooltip-light" data-toggle="tooltip"  data-placement="top" data-animation="false" data-original-title="Delete"><i class="bx bx-trash"></i></button>
+                                    </form>
+                                    <!-- Delete Option.End -->
+
                               </td>
                               </tr>
                               @endforeach

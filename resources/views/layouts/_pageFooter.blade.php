@@ -7,7 +7,6 @@
 @elseif(
 Route::currentRouteName() == 'permissions.index'
 || Route::currentRouteName() == 'roles.index'
-|| Route::currentRouteName() == 'roles.edit'
 || Route::currentRouteName() == 'admin-users.index'
 || Route::currentRouteName() == 'organizations.index'
 )
