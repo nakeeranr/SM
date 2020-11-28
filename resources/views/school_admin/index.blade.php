@@ -44,7 +44,7 @@
                   <div class="card-body card-dashboard">
                      <p class="card-text"></p>
                      <div class="table-responsive">
-                        <table class="table zero-configuration" id="organizationsTable">
+                     <table class="table zero-configuration" id="usersTable">
                            <thead>
                               <tr>
                                  <th>Name</th>
@@ -54,31 +54,29 @@
                               </tr>
                            </thead>
                            <tbody>
-                              @if(!empty($organizations))
-                              @foreach($organizations as $organization)
+                              @if(!empty($schoolAdminUser))
+                              @foreach($schoolAdminUser as $user)
                               <tr>
-                                 <td>{{$organization->name??''}}</td>
-                                 <td>{{$organization->status}}</td>
-                                 <td>{{$organization->created_at?date('d, F Y',strtotime($organization->created_at)):''}}</td>
+                                 <td>{{ $user->fullName ? $user->fullName:'' }}</td>
+                                 <td>{{ $user->status }}</td>
+                                 <td>{{ $user->created_at ? $user->created_at :'' }}</td>
                                  <td class="text-center">
-
                                     <!-- info option -->
-                                    <a href="{{ route('org-admin.show', [$organization->id]) }}" class="tooltip-light"  data-toggle="tooltip"  data-placement="top" data-animation="false" data-original-title="Info">
-                                          <button type="button" class="btn btn-icon rounded-circle btn-primary glow mr-1">
-                                          <i class="bx bx-info-circle"></i></button>
-                                       </a>
+                                    <a href="{{ route('org-admin.show',[$user->id]) }}" class="tooltip-light"  data-toggle="tooltip"  data-placement="top" data-animation="false" data-original-title="Info">
+                                       <button type="button" class="btn btn-icon rounded-circle btn-primary glow mr-1">
+                                       <i class="bx bx-info-circle"></i></button>
+                                    </a>
                                     <!-- info option.End -->
                                     
                                     <!-- Edit Option -->
-                                    <a href="{{ route('org-admin.edit', [$organization->id]) }}" class="tooltip-light"  data-toggle="tooltip"  data-placement="top" data-animation="false" data-original-title="Edit">
+                                    <a href="{{ route('org-admin.edit',[$user->id]) }}" class="tooltip-light"  data-toggle="tooltip"  data-placement="top" data-animation="false" data-original-title="Edit">
                                        <button type="button" class="btn btn-icon rounded-circle btn-warning glow mr-1">
                                        <i class="bx bxs-pencil"></i></button>
                                     </a>
                                     <!-- Edit Option.End -->
-
                                     <!-- Delete Option -->
-                                    <form method="POST" action="{{ route('org-admin.destroy',[$organization->id]) }}" accept-charset="UTF-8" style="display:inline">
-                                    <input name="_method" type="hidden" value="DELETE"><input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                    <form method="POST" action="{{ route('org-admin.destroy',[$user->id]) }}" accept-charset="UTF-8" style="display:inline">
+                                       <input name="_method" type="hidden" value="DELETE"><input type="hidden" name="_token" value="{{ csrf_token() }}">
                                        <button class="btn btn-icon rounded-circle btn-danger glow mr-1 tooltip-light" data-toggle="tooltip"  data-placement="top" data-animation="false" data-original-title="Delete"><i class="bx bx-trash"></i></button>
                                     </form>
                                     <!-- Delete Option.End -->
@@ -88,12 +86,12 @@
                               @endif
                            </tbody>
                            <tfoot>
-                              <tr>
-                                 <th class="font-small-2 text-uppercase">Name</th>
-                                 <th class="font-small-2 text-uppercase">Status</th>
-                                 <th class="font-small-2 text-uppercase">Created Date</th>
-                                 <th class="text-center font-small-2 text-uppercase">Actions</th>
-                              </tr>
+                           <tr>
+                              <th class="font-small-2 text-uppercase">Name</th>
+                              <th class="font-small-2 text-uppercase">Status</th>
+                              <th class="font-small-2 text-uppercase">Created Date</th>
+                              <th class="text-center font-small-2 text-uppercase">Actions</th>
+                           </tr>
                            </tfoot>
                         </table>
                      </div>

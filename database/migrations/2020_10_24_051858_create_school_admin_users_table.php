@@ -32,6 +32,9 @@ class CreateSchoolAdminUsersTable extends Migration
 
             $table->string('profilePic')->nullable();
 
+            $table->tinyInteger('is_first_time_login')->unsigned()->comment('0:No, 1:Yes');
+            $table->tinyInteger('is_password_reset')->unsigned()->comment('0:No, 1:Yes');
+
             $table->unsignedBigInteger('created_by');
             $table->foreign('created_by')->references('id')->on('users');
 

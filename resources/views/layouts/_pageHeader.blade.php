@@ -28,6 +28,7 @@
 || Route::currentRouteName() == 'organizations.edit'
 || Route::currentRouteName() == 'roles.create'
 || Route::currentRouteName() == 'roles.edit'
+|| Route::currentRouteName() == 'org-admin.create'
 )
 <link rel="stylesheet" type="text/css" href="{{ asset('vendors/css/pickers/pickadate/pickadate.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/plugins/forms/validation/form-validation.css') }}">

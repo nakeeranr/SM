@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Repositories\Organization\OrganizationInterface;
+use App\Http\Requests\SchoolAdminUser\StoreSchoolAdminUserRequest;
+use App\Http\Requests\SchoolAdminUser\UpdateSchoolAdminUserRequest;
+use App\Repositories\Role\RoleInterface;
+use App\Repositories\SchoolAdminUser\SchoolAdminUserInterface;
 
 class SchoolAdminUserController extends Controller
 {
 
     private $organization;
-    public function __construct(OrganizationInterface $organization)
+    public function __construct(OrganizationInterface $organization , RoleInterface $role , SchoolAdminUserInterface $schoolAdminUser)
     {
         $this->middleware("auth");
         $this->organization = $organization;
+        $this->role = $role;
+        $this->schoolAdminUser = $schoolAdminUser;
     }
 
     /**
@@ -22,8 +29,8 @@ class SchoolAdminUserController extends Controller
      */
     public function index()
     {
-        $organization = $this->organization->getAll()->pluck('id', 'name');
-        return view('school_admin.index', compact('organizations'));
+        $schoolAdminUser = $this->schoolAdminUser->getAll();
+        return view('school_admin.index', compact('schoolAdminUser'));
     }
 
     /**
@@ -33,8 +40,8 @@ class SchoolAdminUserController extends Controller
      */
     public function create()
     {
-        $organization = $this->organization->getAll()->pluck('name', 'id');
-        return view('school_admin.create',compact('organization'));
+        $organizations = $this->organization->getAll()->pluck('name', 'id')->toArray();
+        return view('school_admin.create',compact('organizations'));
     }
 
     /**
@@ -43,9 +50,22 @@ class SchoolAdminUserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSchoolAdminUserRequest $request)
     {
-        //
+        DB::beginTransaction();
+        try {
+            $request->merge(['roles' => $this->role->getRoleIdByName('Administrator')]);
+            $this->schoolAdminUser->create($request);
+            DB::commit();
+            return redirect()->route('org-admin.index')->with([
+                'alertType' => 'success',
+                'alertMessage' => 'Organization Admin User Created Successfully.']);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Organization Admin User Creation Failed.']);
+        }
     }
 
     /**
@@ -56,7 +76,17 @@ class SchoolAdminUserController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+
+            $schoolAdminUser = $this->schoolAdminUser->find($id);
+            return view('school_admin.show', compact('schoolAdminUser'));
+
+        } catch (\Exception $ex) {
+            logger($ex->getMessage());
+            return redirect()->route('admin-users.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Something went wrong.']);
+        }
     }
 
     /**
@@ -67,7 +97,16 @@ class SchoolAdminUserController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $schoolAdminUser = $this->schoolAdminUser->find($id);
+            $organizations = $this->organization->getAll()->pluck('name', 'id')->toArray();
+            return view('school_admin.edit', compact('schoolAdminUser','organizations'));
+        } catch (\Exception $ex) {
+            logger($ex->getMessage());
+            return redirect()->route('org-admin.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Something went wrong.']);
+        }
     }
 
     /**
@@ -77,9 +116,24 @@ class SchoolAdminUserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSchoolAdminUserRequest $request, $id)
     {
-        //
+        DB::beginTransaction();
+
+        try {
+            $request->merge(['roles' => $this->role->getRoleIdByName('Administrator')]);
+            $this->schoolAdminUser->update($request, $id);
+            DB::commit();
+            return redirect()->route('org-admin.index')->with(['alertType' => 'success',
+                'alertMessage' => 'Organization Admin User Updated Successfully.']);
+
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return redirect()->back()->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Organization Admin User Updation Failed.']);
+
+        }
     }
 
     /**
@@ -90,6 +144,15 @@ class SchoolAdminUserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->schoolAdminUser->delete($id);
+            return redirect()->route('org-admin.index')->with(['alertType' => 'success',
+                'alertMessage' => 'Organization Admin User Deleted Successfully.']);
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return redirect()->route('org-admin.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Organization Admin User Deletion Failed.']);
+        }
     }
 }
