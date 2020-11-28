@@ -17,7 +17,7 @@ class PermissionRepository implements PermissionInterface
     /** To get all active records **/
     public function getAll()
     {
-        return $this->permission->whereStatus(1)->get();
+        return $this->permission->all();
     }
 
     /** To get record based on given id **/

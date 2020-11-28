@@ -26,15 +26,17 @@
                <div class="card-header">
                   <h4 class="card-title">Create Permission</h4>
                   <div class="heading-elements">
-                      <ul class="list-inline mb-0">
-                          <!-- Back Option -->
-                          <a href="{{ route('permissions.index') }}" class="tooltip-light pl-0" data-toggle="tooltip"
-                              data-placement="top" data-animation="true" data-original-title="Go back">
-                              <button class="btn btn-icon rounded-circle btn-primary glow">
-                              <i class="bx bx-left-arrow-circle"></i></button>
-                          </a>
-                          <!-- Back Option.End -->
-                      </ul>
+                     <ul class="list-inline mb-0">
+                        
+                        <!-- Back Option -->
+                        <a href="{{ route('permissions.index') }}" class="tooltip-light pl-0" data-toggle="tooltip"
+                           data-placement="top" data-animation="true" data-original-title="Go back">
+                        <button class="btn btn-icon rounded-circle btn-primary glow">
+                        <i class="bx bx-left-arrow-circle"></i></button>
+                        </a>
+                        <!-- Back Option.End -->
+                        
+                     </ul>
                   </div>
                </div>
                <div class="card-content">
@@ -43,21 +45,18 @@
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-body">
                            <div class="row">
-                              
                               <div class="col-md-6 col-12">
-                                  @include('partials._formElements', [ 
-                                       'type' => 'text', 
-                                       'field_name' => 'name', 
-                                       'pname' => 'Name',
-                                       'is_required' => 1,
-                                       'val_message' => 'Name'
-                                    ])
+                                 @include('partials._formElements', [ 
+                                 'type' => 'text', 
+                                 'field_name' => 'name', 
+                                 'pname' => 'Name',
+                                 'is_required' => 1,
+                                 'val_message' => 'Name'
+                                 ])
                               </div>
-                              
                               <div class="col-md-6 col-12">
                                  <label for="status">Status</label>
                                  <ul class="list-unstyled mb-0">
-
                                     @include('partials._formElements', [  'type' => 'radio', 
                                     'field_name' => 'status', 
                                     'id' => 'customRadio4', 
@@ -65,7 +64,6 @@
                                     'val' => 1,
                                     'is_checked' => 'checked'
                                     ])
-
                                     @include('partials._formElements', [  'type' => 'radio', 
                                     'field_name' => 'status', 
                                     'id' => 'customRadio5', 
@@ -73,37 +71,32 @@
                                     'val' => 0,
                                     'is_checked' => ''
                                     ])
-
                                  </ul>
                                  <span class="help-block">{{ $errors->first('status') }}</span>
                               </div>
-                              
                               <div class="col-md-12 col-12">
                                  @include('partials._formElements', [ 
-                                       'type' => 'textarea', 
-                                       'field_name' => 'description', 
-                                       'pname' => 'Description',
-                                       'length' => 250,
-                                       'rows' => 3,
-                                       'is_required' => 1
+                                 'type' => 'textarea', 
+                                 'field_name' => 'description', 
+                                 'pname' => 'Description',
+                                 'length' => 250,
+                                 'rows' => 3,
+                                 'is_required' => 1
                                  ])
                               </div>
-
                               <div class="col-sm-12 d-flex justify-content-end">
                                  @include('partials._formElements', [ 
-                                   'type' => 'button', 
-                                   'class' => 'btn btn-primary mr-1 mb-1', 
-                                   'field_name' => 'submit', 
-                                   'pname' => 'Submit'
-                                   ])
-
-                                   @include('partials._formElements', [ 'type' => 'button', 
-                                   'class' => 'btn btn-light-secondary mr-1 mb-1', 
-                                   'field_name' => 'reset', 
-                                   'pname' => 'Reset'
-                                   ])
+                                 'type' => 'button', 
+                                 'class' => 'btn btn-primary mr-1 mb-1', 
+                                 'field_name' => 'submit', 
+                                 'pname' => 'Submit'
+                                 ])
+                                 @include('partials._formElements', [ 'type' => 'button', 
+                                 'class' => 'btn btn-light-secondary mr-1 mb-1', 
+                                 'field_name' => 'reset', 
+                                 'pname' => 'Reset'
+                                 ])
                               </div>
-
                            </div>
                         </div>
                      </form>
@@ -115,5 +108,4 @@
    </section>
    <!-- // Basic multiple Column Form section end -->
 </div>
-
 @endsection

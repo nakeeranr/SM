@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Requests\Permission\StorePermissionRequest;
 use App\Http\Requests\Permission\UpdatePermissionRequest;
 use App\Repositories\Permission\PermissionInterface;
 use Exception;
@@ -51,11 +51,13 @@ class PermissionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePermissionRequest $request)
     {
         try {
             $this->permission->create($request);
-            return redirect()->route('permissions.index')->with('success', 'Permission created successfully');
+            return redirect()->route('permissions.index')->with([
+                'alertType' => 'success',
+                'alertMessage' => 'Permission created successfully.']);
         } catch (\Exception $ex) {
             logger($ex->getMessage());
             return redirect()->route('permissions.index')->with([
@@ -115,12 +117,14 @@ class PermissionController extends Controller
     {
         try {
             $this->permission->update($request, $id);
-            return redirect()->route('permissions.index')->with('success', 'Permission created successfully');
+            return redirect()->route('permissions.index')->with([
+                'alertType' => 'success',
+                'alertMessage' => 'Permission updated successfully.']);
         } catch (\Exception $ex) {
             logger($ex->getMessage());
             return redirect()->route('permissions.index')->with([
                 'alertType' => 'error',
-                'alertMessage' => 'Permission creation failed']);
+                'alertMessage' => 'Permission updation failed']);
         }
     }
 
@@ -134,7 +138,9 @@ class PermissionController extends Controller
     {
         try {
             $this->permission->delete($id);
-            return redirect()->route('permissions.index')->with('success', 'Permission deleted successfully');
+            return redirect()->route('permissions.index')->with([
+                'alertType' => 'success',
+                'alertMessage' => 'Permission deleted successfully.']);
         } catch (\Exception $ex) {
             logger($ex->getMessage());
             return redirect()->route('permissions.index')->with([
