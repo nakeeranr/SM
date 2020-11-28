@@ -39,7 +39,7 @@
                </div>
                <div class="card-content">
                   <div class="card-body">
-                     <form class="form" action="{{ route('permissions.store') }}" method="POST" id="permission-form" novalidate="">
+                     <form class="form form-horizontal" action="{{ route('permissions.store') }}" method="POST" id="permission-form" novalidate>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <div class="form-body">
                            <div class="row">
@@ -84,7 +84,8 @@
                                        'field_name' => 'description', 
                                        'pname' => 'Description',
                                        'length' => 250,
-                                       'rows' => 3
+                                       'rows' => 3,
+                                       'is_required' => 1
                                  ])
                               </div>
 

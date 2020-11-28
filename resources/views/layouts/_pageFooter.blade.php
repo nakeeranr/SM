@@ -51,8 +51,8 @@ Route::currentRouteName() == 'permissions.index'
 || Route::currentRouteName() == 'admin-users.edit'
 || Route::currentRouteName() == 'roles.create'
 || Route::currentRouteName() == 'roles.edit'
-
-|| Route::currentRouteName() == 'org-admin.create'
+|| Route::currentRouteName() == 'admin-users.create'
+|| Route::currentRouteName() == 'permissions.create'
 )
 	<script src="{{ asset('vendors/js/pickers/pickadate/picker.js') }}"></script>
 	<script src="{{ asset('vendors/js/pickers/pickadate/picker.date.js') }}"></script>
