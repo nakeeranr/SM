@@ -3,6 +3,7 @@
 namespace App\Repositories\Role;
 
 use App\Models\Role;
+use Illuminate\Support\Str;
 
 class RoleRepository implements RoleInterface
 {
@@ -66,6 +67,8 @@ class RoleRepository implements RoleInterface
     private function buildObject($request, $role)
     {
         $role->name = $request->get('name');
+
+        $role->slug_name= Str::slug($request->get('name'));
 
         $role->description = $request->get('description');
 

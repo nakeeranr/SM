@@ -3,6 +3,7 @@
 namespace App\Repositories\Permission;
 
 use App\Models\Permission;
+use Illuminate\Support\Str;
 
 class PermissionRepository implements PermissionInterface
 {
@@ -54,6 +55,8 @@ class PermissionRepository implements PermissionInterface
     private function buildObject($request, $permission)
     {
         $permission->name = $request->get('name');
+
+        $permission->slug_name= Str::slug($request->get('name'));
 
         $permission->description = $request->get('description');
 

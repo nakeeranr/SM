@@ -76,7 +76,7 @@ class OrganizationController extends Controller
                     'alertType' => 'success',
                     'alertMessage' => 'Organization Registered Successfully.']);
         } catch (\Exception $e) {
-            logger($e->getMessage());
+            dd($e->getMessage());
             return redirect()->back()->with([
                 'alertType' => 'error',
                 'alertMessage' => 'Organization Registration Failed.']);

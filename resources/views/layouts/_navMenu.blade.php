@@ -24,47 +24,61 @@
             </a>
         </li>
 
+        @role(['Administrator'])
         <li class="@if (str_contains(Route::currentRouteName(), 'permissions')) active @endif nav-item">
             <a href="{{ route('permissions.index') }}"><i class="menu-livicon" data-icon="lock"></i>
             <span class="menu-item" data-i18n="Permissions">Permissions</span>
             </a>
         </li>
+        @endrole
 
+        @role(['Administrator'])
         <li class="@if (str_contains(Route::currentRouteName(), 'roles')) active @endif nav-item">
             <a href="{{ route('roles.index') }}"><i class="menu-livicon" data-icon="two-pointers"></i>
             <span class="menu-item" data-i18n="Permissions">Roles</span>
             </a>
         </li>
+        @endrole
 
+        @role(['Administrator'])
         <li class="@if (str_contains(Route::currentRouteName(), 'users')) active @endif nav-item">
             <a href="{{ route('admin-users.index') }}"><i class="menu-livicon" data-icon="Users"></i>
             <span class="menu-item" data-i18n="Permissions">Admin Users</span>
             </a>
         </li>
+        @endrole
 
+        @role(['Administrator'])
         <li class="@if (str_contains(Route::currentRouteName(), 'organizations')) active @endif nav-item">
             <a href="{{ route('organizations.index') }}"><i class="menu-livicon" data-icon="notebook"></i>
             <span class="menu-item" data-i18n="Permissions">Organizations</span>
             </a>
         </li>
+        @endrole
 
+        @role(['Administrator','School Administrator'])
         <li class="@if (str_contains(Route::currentRouteName(), 'students')) active @endif nav-item">
             <a href="{{ route('students.index') }}"><i class="menu-livicon" data-icon="Users"></i>
             <span class="menu-item" data-i18n="Permissions">Students</span>
             </a>
         </li>
+        @endrole
 
+        @role(['Administrator','School Administrator'])
         <li class="@if (str_contains(Route::currentRouteName(), 'sections')) active @endif nav-item">
             <a href="{{ route('sections.index') }}"><i class="menu-livicon" data-icon="Users"></i>
             <span class="menu-item" data-i18n="Permissions">Sections</span>
             </a>
         </li>
+        @endrole
 
+        @role(['Administrator','School Administrator'])
         <li class="@if (str_contains(Route::currentRouteName(), 'org-admin')) active @endif nav-item">
             <a href="{{ route('org-admin.index') }}"><i class="menu-livicon" data-icon="Users"></i>
             <span class="menu-item" data-i18n="Permissions">Organization Admins</span>
             </a>
         </li>
+        @endrole
 
         </ul>
       </div>

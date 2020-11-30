@@ -16,6 +16,7 @@ class CreatePermissionsTable extends Migration
         Schema::create('permissions', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name'); 
+            $table->string('slug_name'); 
             $table->text('description');
             $table->tinyInteger('status')->unsigned()->comment('0:Inactive, 1:Active');
             $table->softDeletes();

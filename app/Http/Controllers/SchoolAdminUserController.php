@@ -53,7 +53,7 @@ class SchoolAdminUserController extends Controller
     {
         DB::beginTransaction();
         try {
-            $request->merge(['roles' => $this->role->getRoleIdByName('Administrator')]);
+            $request->merge(['roles' => $this->role->getRoleIdByName('School Administrator')]);
             $this->schoolAdminUser->create($request);
             DB::commit();
             return redirect()->route('org-admin.index')->with([

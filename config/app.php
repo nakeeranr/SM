@@ -181,6 +181,8 @@ return [
          */
         App\Providers\RepositoryServiceProvider::class,
 
+        Greatsami\Entrust\EntrustServiceProvider::class,
+
     ],
 
     /*
@@ -233,6 +235,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'JsValidator' => Proengsoft\JsValidation\Facades\JsValidatorFacade::class,
+        'Entrust'   => Greatsami\Entrust\EntrustFacade::class,
 
     ],
 

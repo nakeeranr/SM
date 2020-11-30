@@ -34,7 +34,7 @@ class StoreSchoolAdminUserRequest extends BaseRequest
             'last_name' => ["nullable", "min:1", "max:50", "regex:/^(?=.{1,50}$)[a-z]+(?:['.\s][a-z]+)*$/i"],
             'user_name' =>"required",
             'gender' => ['nullable', Rule::in($gender_key)],
-            'dob' => 'nullable|date_format:"d F, Y"|before:tomorrow',
+            'dob' => 'nullable|before:tomorrow',
             'email_id' => ["bail","required", "min:6", "max:70", "unique:users,email", "regex:/^[^_\'.@-][A-Za-z0-9_.\'!-=#$%^+&\*]*(\.[a-zA-Z][a-zA-Z0-9_]*)?[^_]@[a-zA-Z0-9_][a-zA-Z-0-9]*\.[^_][a-zA-Z]+(\.[a-zA-Z]+)?$/"],
             'phone_number' => 'nullable|regex:/^(?!0+$)\d{6,14}$/|unique:admin_users,phone_number',
             'status' => ['required', Rule::in($userStatus)],
