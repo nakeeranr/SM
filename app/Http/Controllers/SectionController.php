@@ -13,7 +13,6 @@ class SectionController extends Controller
 {
     public function __construct(OrganizationInterface $organization, Classes $classes)
     {
-        $this->middleware("auth");
         $this->organization = $organization;
         $this->classes = $classes;
     }

@@ -39,7 +39,7 @@
                     </div>
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form" action="{{ route('organizations.store') }}" method="POST" id="form-organizations" novalidate>
+                            <form class="form form-horizontal" action="{{ route('organizations.store') }}" method="POST" id="form-organizations" novalidate>
                                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                                 <div class="form-body">
                                     <div class="row">

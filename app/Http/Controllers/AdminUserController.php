@@ -23,8 +23,6 @@ class AdminUserController extends Controller
 
     public function __construct(AdminUserInterface $adminUser, RoleInterface $role)
     {
-
-        $this->middleware("auth");
         $this->adminUser = $adminUser;
         $this->role = $role;
     }

@@ -28,6 +28,7 @@
 || Route::currentRouteName() == 'roles.create'
 || Route::currentRouteName() == 'roles.edit'
 || Route::currentRouteName() == 'org-admin.create'
+|| Route::currentRouteName() == 'org-admin.edit'
 || Route::currentRouteName() == 'permissions.create'
 || Route::currentRouteName() == 'permissions.edit'
 )

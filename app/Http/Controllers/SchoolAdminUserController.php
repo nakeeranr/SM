@@ -16,7 +16,6 @@ class SchoolAdminUserController extends Controller
     private $organization;
     public function __construct(OrganizationInterface $organization , RoleInterface $role , SchoolAdminUserInterface $schoolAdminUser)
     {
-        $this->middleware("auth");
         $this->organization = $organization;
         $this->role = $role;
         $this->schoolAdminUser = $schoolAdminUser;

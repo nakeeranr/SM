@@ -40,9 +40,11 @@ $required = !empty($is_required) ? 'required ': '';
       <div class="form-control-position">
          <i class='bx bx-calendar'></i>
       </div>
+      <div class="controls">
+         <span class="help-block">{{ $errors->first($field_name) }}</span>
+      </div>
    </fieldset>
    <label for="{{ $field_name }}">{{ $pname }}</label>
-   <span class="help-block">{{ $errors->first($field_name) }}</span>
 </div>
 
 @elseif($type == 'radio' && !empty($field_name) && !empty($pname) && !empty($id))
