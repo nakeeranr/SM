@@ -45,4 +45,30 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Role::class, 'users_roles');
     }
+
+    public function getMyOrgIdAttribute(){
+
+        //sample code 
+        $role_name = Auth::user()->roles->pluck('name')->first();
+        $relation = config('constants.ROLE_PROFILE.' . $role_name . '.userRelation');
+        $user = Auth::user();
+        if (isset($user->$relation)) {
+            if (isset($user->$relation->hospital) && !empty(isset($user->$relation->hospital)) && isset($user->$relation->hospital->id)) {
+                return $user->$relation->hospital->id;
+            } else {
+                return null;
+            }
+        } else {
+            return null;
+        }
+
+        $hospitalId = $this->user->getMyHospitalId();
+        if(!empty($hospitalId)){
+            return $this->hospital->whereId($hospitalId)->pluck('name','id');   
+        }else{
+            return $this->hospital->pluck('name', 'id');
+        }
+
+        
+    }
 }
