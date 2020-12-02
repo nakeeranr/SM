@@ -2,19 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Organization\StoreOrganizationRequest;
-use App\Http\Requests\Organization\UpdateOrganizationRequest;
 use App\Models\Classes;
+use App\Repositories\Section\SectionInterface;
 use App\Repositories\Organization\OrganizationInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class SectionController extends Controller
 {
-    public function __construct(OrganizationInterface $organization, Classes $classes)
+    public function __construct(SectionInterface $section, Classes $classes, OrganizationInterface $organization)
     {
-        $this->organization = $organization;
+        $this->section = $section;
         $this->classes = $classes;
+        $this->organization = $organization;
     }
     /**
      * Display a listing of the resource.
@@ -34,8 +34,19 @@ class SectionController extends Controller
      */
     public function create()
     {
-        $sections = [];
-        return view('sections.create', compact('sections'));
+        $user = Auth::user();
+        $this->role =$user->roles->first()->name;
+        dd($this->role);
+        try {
+            $classes = $this->classes->whereStatus(1)->pluck('name', 'id')->toArray();
+            $organizations = $this->organization->getAll()->pluck('name', 'id')->toArray();
+            return view('sections.create', compact('classes','organizations'));
+        } catch (\Exception $ex) {
+            logger($ex->getMessage());
+            return redirect()->back()->with([
+                'alertType' => 'failure',
+                'alertMessage' => 'Something went wrong.']);
+        }
     }
 
     /**
@@ -46,7 +57,17 @@ class SectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $section = $this->section->create($request);
+            return redirect()->route('sections.index')->with([
+                'alertType' => 'success',
+                'alertMessage' => 'Sections Registered Successfully.']);
+        } catch (\Exception $ex) {
+            dd($ex->getMessage());
+            return redirect()->back()->with([
+                'alertType' => 'failure',
+                'alertMessage' => 'Something went wrong.']);
+        }
     }
 
     /**

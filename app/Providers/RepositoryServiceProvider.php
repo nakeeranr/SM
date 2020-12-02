@@ -20,6 +20,9 @@ use App\Repositories\SchoolAdminUser\SchoolAdminUserRepository;
 use App\Repositories\Permission\PermissionInterface;
 use App\Repositories\Permission\PermissionRepository;
 
+use App\Repositories\Section\SectionInterface;
+use App\Repositories\Section\SectionRepository;
+
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -48,6 +51,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AdminUserInterface::class, AdminUserRepository::class);
         $this->app->bind(OrganizationInterface::class, OrganizationRepository::class);
         $this->app->bind(SchoolAdminUserInterface::class,SchoolAdminUserRepository::class);
+        $this->app->bind(SectionInterface::class,SectionRepository::class);
     }
 
     public function provides()
@@ -59,6 +63,7 @@ class RepositoryServiceProvider extends ServiceProvider
             AdminUserInterface::class,
             OrganizationInterface::class,
             SchoolAdminUserInterface::class,
+            SectionInterface::class
         ];
     }
 }
