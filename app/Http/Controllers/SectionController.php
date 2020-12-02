@@ -7,6 +7,9 @@ use App\Repositories\Section\SectionInterface;
 use App\Repositories\Organization\OrganizationInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\Section\StoreSectionRequest;
+use App\Http\Requests\Section\UpdateSectionRequest;
+
 
 class SectionController extends Controller
 {
@@ -23,7 +26,7 @@ class SectionController extends Controller
      */
     public function index()
     {
-        $sections = [];
+        $sections = $this->section->getAll();
         return view('sections.index', compact('sections'));
     }
 
@@ -34,9 +37,6 @@ class SectionController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-        $this->role =$user->roles->first()->name;
-        dd($this->role);
         try {
             $classes = $this->classes->whereStatus(1)->pluck('name', 'id')->toArray();
             $organizations = $this->organization->getAll()->pluck('name', 'id')->toArray();
@@ -55,7 +55,7 @@ class SectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreSectionRequest $request)
     {
         try {
             $section = $this->section->create($request);
@@ -99,7 +99,7 @@ class SectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateSectionRequest $request, $id)
     {
         //
     }

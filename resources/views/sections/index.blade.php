@@ -47,7 +47,7 @@
                         <table class="table zero-configuration" id="SectionsTable">
                            <thead>
                               <tr>
-                                 <th>Name</th>
+                                 <th>Organization</th>
                                  <th>Class</th>
                                  <th>Created Date</th>
                                  <th>Status</th>
@@ -55,12 +55,13 @@
                               </tr>
                            </thead>
                            <tbody>
-                              @if(!empty($Sections))
-                              @foreach($Sections as $section)
+                              @if(!empty($sections))
+                              @foreach($sections as $section)
                               <tr>
-                                 <td>{{$section->name??''}}</td>
-                                 <td>{{$section->status}}</td>
+                                 <td>{{$section->organization->name??''}}</td>
+                                 <td>{{$section->classes->name && $section->section_name?str_replace('Class','',$section->classes->name)." ". $section->section_name:''}}</td>
                                  <td>{{$section->created_at?date('d, F Y',strtotime($section->created_at)):''}}</td>
+                                 <td>{{$section->status}}</td>
                                  <td class="text-center">
 
                                     <!-- info option -->

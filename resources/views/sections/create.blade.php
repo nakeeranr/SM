@@ -53,7 +53,8 @@
                                             @include('partials._formElements', [  'type' => 'select',
                                             'field_name' => 'organization_id',
                                             'pname' => 'Organization',
-                                            'options' => $organizations
+                                            'options' => $organizations,
+                                            'is_required'=>1
                                             ])
                                         </div>
 
@@ -61,13 +62,14 @@
                                             @include('partials._formElements', [  'type' => 'select',
                                             'field_name' => 'classes_id',
                                             'pname' => 'Class',
-                                            'options' => $classes
+                                            'options' => $classes,
+                                            'is_required'=>1
                                             ])
                                         </div>
 
                                         <div class="col-md-4 col-12">
                                         @include('partials._formElements', [ 'type' => 'text', 'field_name' => 'section_name', 
-                                            'pname' => 'Section'])
+                                            'pname' => 'Section','is_required'=>1])
                                         </div>
                                         <div class="col-md-4 col-12">
                                             
