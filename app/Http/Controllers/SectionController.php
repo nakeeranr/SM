@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classes;
+use App\User;
 use App\Repositories\Section\SectionInterface;
 use App\Repositories\Organization\OrganizationInterface;
 use Illuminate\Http\Request;
@@ -13,11 +14,12 @@ use App\Http\Requests\Section\UpdateSectionRequest;
 
 class SectionController extends Controller
 {
-    public function __construct(SectionInterface $section, Classes $classes, OrganizationInterface $organization)
+    public function __construct(SectionInterface $section, Classes $classes, OrganizationInterface $organization, User $user)
     {
         $this->section = $section;
         $this->classes = $classes;
         $this->organization = $organization;
+        $this->user = $user;
     }
     /**
      * Display a listing of the resource.
@@ -38,11 +40,16 @@ class SectionController extends Controller
     public function create()
     {
         try {
-            $classes = $this->classes->whereStatus(1)->pluck('name', 'id')->toArray();
+            $orgID=$this->user->getMyOrgIdAttribute();
+            $classes=$this->classes->whereStatus(1)->whereHas('organization', function ($query) use ($orgID) {
+                if(!empty($orgID) && isset($orgID)){
+                    $query->where('organization_id',$orgID);  
+                } 
+            })->pluck('name','id')->toArray();
             $organizations = $this->organization->getAll()->pluck('name', 'id')->toArray();
-            return view('sections.create', compact('classes','organizations'));
+            return view('sections.create', compact('classes','organizations','orgID'));
         } catch (\Exception $ex) {
-            logger($ex->getMessage());
+            dd($ex->getMessage());
             return redirect()->back()->with([
                 'alertType' => 'failure',
                 'alertMessage' => 'Something went wrong.']);
@@ -113,5 +120,15 @@ class SectionController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getClassDetailsMappedWithOrg(Request $request){
+        $orgID=$request->orgID;
+        $classes=$this->classes->whereStatus(1)->whereHas('organization', function ($query) use ($orgID) {
+            if(!empty($orgID) && isset($orgID)){
+                    $query->where('organization_id',$orgID);  
+            } 
+        })->pluck('name','id')->toArray();
+        return  $classes;
     }
 }

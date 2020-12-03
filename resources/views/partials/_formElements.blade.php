@@ -63,7 +63,7 @@ $required = !empty($is_required) ? 'required ': '';
 @elseif($type == 'select' && !empty($field_name) && !empty($pname) && !empty($options))
 <label for="{{ $field_name }}">{{ $pname }}</label>
 <fieldset class="form-group">
-   <select class="form-control {{ isset($is_multiple) ? 'select2' : '' }}" {{ $required }} id="{{ $field_name }}" {{ $is_multiple ?? '' }} name="{{ $field_name }}{{ isset($is_multiple) ? '[]' : '' }}">
+   <select class="form-control {{ isset($is_multiple) ? 'select2' : '' }}" {{ $required }} id="{{ $field_name }}" {{ $is_multiple ?? '' }} name="{{ $field_name }}{{ isset($is_multiple) ? '[]' : '' }}" {{isset($is_disabled) && $is_disabled == 1 ? 'disabled':''}}> 
     @if(!isset($val) && !isset($is_multiple))
         <option selected disabled>Select {{ $pname }}</option>
     @endif

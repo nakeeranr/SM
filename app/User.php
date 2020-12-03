@@ -2,12 +2,13 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use App\Models\AdminUser;
 use App\Models\Role;
+use App\Models\SchoolAdminUser;
 use Auth;
 use Greatsami\Entrust\Traits\EntrustUserTrait;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -46,29 +47,30 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'users_roles');
     }
 
-    public function getMyOrgIdAttribute(){
+    public function admin()
+    {
+        return $this->hasOne(AdminUser::class, 'user_id');
+    }
 
-        //sample code 
-        $role_name = Auth::user()->roles->pluck('name')->first();
+    public function schoolAdmin()
+    {
+        return $this->hasOne(SchoolAdminUser::class, 'user_id');
+    }
+
+    public function getMyOrgIdAttribute()
+    {
+        $role_name = Auth::user()->roles->pluck('slug_name')->first();
+       
         $relation = config('constants.ROLE_PROFILE.' . $role_name . '.userRelation');
         $user = Auth::user();
         if (isset($user->$relation)) {
-            if (isset($user->$relation->hospital) && !empty(isset($user->$relation->hospital)) && isset($user->$relation->hospital->id)) {
-                return $user->$relation->hospital->id;
+            if (isset($user->$relation->organization) && !empty(isset($user->$relation->organization)) && isset($user->$relation->organization->id)) {
+                return $user->$relation->organization->id;
             } else {
                 return null;
             }
         } else {
             return null;
         }
-
-        $hospitalId = $this->user->getMyHospitalId();
-        if(!empty($hospitalId)){
-            return $this->hospital->whereId($hospitalId)->pluck('name','id');   
-        }else{
-            return $this->hospital->pluck('name', 'id');
-        }
-
-        
     }
 }
