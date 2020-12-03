@@ -76,10 +76,8 @@ class SchoolAdminUserController extends Controller
     public function show($id)
     {
         try {
-
             $schoolAdminUser = $this->schoolAdminUser->find($id);
             return view('school_admin.show', compact('schoolAdminUser'));
-
         } catch (\Exception $ex) {
             logger($ex->getMessage());
             return redirect()->route('admin-users.index')->with([

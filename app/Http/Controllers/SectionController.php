@@ -85,7 +85,15 @@ class SectionController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $section = $this->section->find($id);
+            return view('sections.show', compact('section'));
+        } catch (\Exception $ex) {
+            logger($ex->getMessage());
+            return redirect()->route('sections.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Something went wrong.']);
+        }
     }
 
     /**
@@ -96,7 +104,22 @@ class SectionController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $section = $this->section->find($id);
+            $orgID=$this->user->getMyOrgIdAttribute();
+            $classes=$this->classes->whereStatus(1)->whereHas('organization', function ($query) use ($orgID) {
+                if(!empty($orgID) && isset($orgID)){
+                    $query->where('organization_id',$orgID);  
+                } 
+            })->pluck('name','id')->toArray();
+            $organizations = $this->organization->getAll()->pluck('name', 'id')->toArray();
+            return view('sections.edit', compact('classes','organizations','orgID','section'));
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return redirect()->back()->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Organization Registration Failed.']);
+        }
     }
 
     /**
@@ -108,7 +131,17 @@ class SectionController extends Controller
      */
     public function update(UpdateSectionRequest $request, $id)
     {
-        //
+        try {
+            $section = $this->section->update($request,$id);
+            return redirect()->route('sections.index')->with([
+                'alertType' => 'success',
+                'alertMessage' => 'Sections Registered Successfully.']);
+        } catch (\Exception $ex) {
+            dd($ex->getMessage());
+            return redirect()->back()->with([
+                'alertType' => 'failure',
+                'alertMessage' => 'Something went wrong.']);
+        }
     }
 
     /**
@@ -119,7 +152,16 @@ class SectionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $this->section->delete($id);
+            return redirect()->route('sections.index')->with(['alertType' => 'success',
+                'alertMessage' => 'Section Deleted Successfully.']);
+        } catch (\Exception $e) {
+            logger($e->getMessage());
+            return redirect()->route('sections.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Section Deletion Failed.']);
+        }
     }
 
     public function getClassDetailsMappedWithOrg(Request $request){

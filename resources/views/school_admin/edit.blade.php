@@ -161,7 +161,7 @@
                                                 'id' => 'customRadio4', 
                                                 'pname' => 'Active', 
                                                 'val' => 1,
-                                                'is_checked' => 'checked',
+                                                'is_checked' => ($schoolAdminUser->status) == 'Inactive' ? 'checked' : '',
                                                 'is_required' => ''
                                                 ])
 
@@ -170,7 +170,7 @@
                                                 'id' => 'customRadio5', 
                                                 'pname' => 'Inactive', 
                                                 'val' => 0,
-                                                'is_checked' => '',
+                                                'is_checked' => ($schoolAdminUser->status) == 'Inactive' ? 'checked' : '',
                                                 'is_required' => ''
                                                 ])
 

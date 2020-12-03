@@ -34,7 +34,7 @@
                   <div class="heading-elements">
                      <ul class="list-inline mb-0">
                         <a href="{{ route('sections.create') }}">
-                           <button class="btn btn-icon rounded-circle btn-success glow tooltip-light" data-toggle="tooltip"  data-placement="top" data-animation="true" data-original-title="Add Student">
+                           <button class="btn btn-icon rounded-circle btn-success glow tooltip-light" data-toggle="tooltip"  data-placement="top" data-animation="true" data-original-title="Add Section">
                            <i class="bx bx-plus-circle"></i></button>
                         </a>
                      </ul>

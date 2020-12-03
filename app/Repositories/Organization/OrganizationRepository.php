@@ -47,6 +47,7 @@ class OrganizationRepository implements OrganizationInterface
         $this->buildObject($request, $organization);
 
         $organization->updated_by = Auth::id();
+        
         $organization->save();
 
         $organization->classes()->sync($request->get('classes'));

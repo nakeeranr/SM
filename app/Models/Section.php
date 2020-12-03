@@ -19,4 +19,9 @@ class Section extends Model
         return $this->belongsTo(classes::class);
     }
 
+    public function getStatusAttribute($value)
+    {
+        return config('constants.STATUS')[$value];
+    }
+
 }

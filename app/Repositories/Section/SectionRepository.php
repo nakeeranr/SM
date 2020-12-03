@@ -13,11 +13,13 @@ class SectionRepository implements SectionInterface
         $this->section = $section;
     }
 
-    public function getAll(){
+    public function getAll()
+    {
         return $this->section->all();
     }
 
-    public function find($id){
+    public function find($id)
+    {
         return $this->section->findOrFail($id);
     }
 
@@ -35,24 +37,37 @@ class SectionRepository implements SectionInterface
 
         return $section;
     }
-    
-    public function update($request,$id){
 
+    public function update($request, $id)
+    {
+
+        $section = $this->section->findOrFail($id);
+
+        $this->buildObject($request, $section);
+
+        $section->updated_by = Auth::id();
+
+        $section->save();
+
+        return $section;
     }
 
     private function buildObject($request, $section)
     {
-        $section->section_name= $request->section_name;
+        $section->section_name = $request->section_name;
 
-        $section->classes_id= $request->classes_id;
+        $section->classes_id = $request->classes_id;
 
-        $section->organization_id= $request->organization_id;
+        $section->organization_id = $request->organization_id;
 
-        $section->status= $request->status;
+        $section->status = $request->status;
     }
 
-    public function delete($id){
-        
+    public function delete($id)
+    {
+        $section = $this->section->findOrFail($id);
+
+        $section->delete();
     }
 
 }
