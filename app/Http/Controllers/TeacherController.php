@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use App\Repositories\Role\RoleInterface;
 use App\Repositories\Organization\OrganizationInterface;
 use App\Repositories\Section\SectionInterface;
 use App\Repositories\Teacher\TeacherInterface;
+use App\Http\Requests\Teacher\StoreTeacherRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TeacherController extends Controller
 {
@@ -16,11 +19,12 @@ class TeacherController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct(TeacherInterface $teacher, SectionInterface $section, OrganizationInterface $organization)
+    public function __construct(TeacherInterface $teacher, SectionInterface $section, OrganizationInterface $organization,RoleInterface $role)
     {
         $this->teacher = $teacher;
         $this->section = $section;
         $this->organization = $organization;
+        $this->role = $role;
     }
 
     public function index()
@@ -54,9 +58,22 @@ class TeacherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTeacherRequest $request)
     {
-        dd($request->all());
+        DB::beginTransaction();
+        try {
+            $request->merge(['roles' => $this->role->getRoleIdByName('Teacher')]);
+            $this->teacher->create($request);
+            DB::commit();
+            return redirect()->route('teachers.index')->with([
+                'alertType' => 'success',
+                'alertMessage' => 'Teacher Created Successfully.']);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Teacher Creation Failed.']);
+        }
     }
 
     /**

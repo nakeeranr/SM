@@ -173,7 +173,7 @@
                               </div>
                               <div class="col-md-6 col-12" id="class-dropDown">
                                  @include('partials._formElements', [  'type' => 'select',
-                                 'field_name' => 'section_id',
+                                 'field_name' => 'sections',
                                  'pname' => 'Sections',
                                  'options' => $sections,
                                  'is_required'=>1,

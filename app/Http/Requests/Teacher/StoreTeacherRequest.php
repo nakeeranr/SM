@@ -38,7 +38,17 @@ class StoreTeacherRequest extends BaseRequest
             'email_id' => ["bail","required", "min:6", "max:70", "unique:users,email", "regex:/^[^_\'.@-][A-Za-z0-9_.\'!-=#$%^+&\*]*(\.[a-zA-Z][a-zA-Z0-9_]*)?[^_]@[a-zA-Z0-9_][a-zA-Z-0-9]*\.[^_][a-zA-Z]+(\.[a-zA-Z]+)?$/"],
             'phone_number' => 'nullable|regex:/^(?!0+$)\d{6,14}$/|unique:admin_users,phone_number',
             'status' => ['required', Rule::in($userStatus)],
-            'organizationID'=>"required"
+            'address'=>'nullable',
+            'city'=>'nullable',
+            'state'=>'nullable',
+            'country'=>'nullable',
+            'pin_code'=>'nullable',
+            'qualification'=>'nullable',
+            'certification'=>'nullable',
+            'experience_details'=>'nullable',
+            'subject'=>'required',
+            'organization_id'=>'required',
+            'sections'=>'required'
         ];
     }
 

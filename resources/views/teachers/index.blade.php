@@ -34,7 +34,7 @@
                   <div class="heading-elements">
                      <ul class="list-inline mb-0">
                         <a href="{{ route('teachers.create') }}">
-                           <button class="btn btn-icon rounded-circle btn-success glow tooltip-light" data-toggle="tooltip"  data-placement="top" data-animation="true" data-original-title="Add Teachers">
+                           <button class="btn btn-icon rounded-circle btn-success glow tooltip-light" data-toggle="tooltip"  data-placement="top" data-animation="true" data-original-title="Add Teacher">
                            <i class="bx bx-plus-circle"></i></button>
                         </a>
                      </ul>
@@ -48,16 +48,24 @@
                            <thead>
                               <tr>
                                  <th>Name</th>
+                                 <th>Section</th>
                                  <th>Status</th>
                                  <th>Created Date</th>
                                  <th class="text-center">Actions</th>
                               </tr>
                            </thead>
                            <tbody>
-                              @if(!empty($schoolAdminUser))
-                              @foreach($schoolAdminUser as $user)
+                              @if(!empty($teachers))
+                              @foreach($teachers as $user)
                               <tr>
                                  <td>{{ $user->fullName ? $user->fullName:'' }}</td>
+                                 <td>
+                                 @foreach($user->section as $section)
+                                 <span class="badge badge-light-info">
+                                     {{(isset($section->classes->name)?str_replace('Class','',$section->classes->name):''). ' '. $section->section_name}}
+                                 </span>
+                                 @endforeach
+                                 </td>
                                  <td>{{ $user->status }}</td>
                                  <td>{{ $user->created_at ? $user->created_at :'' }}</td>
                                  <td class="text-center">

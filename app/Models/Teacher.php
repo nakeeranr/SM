@@ -23,6 +23,11 @@ class Teacher extends Model
         return $this->belongsTo(Organization::class);
     }
 
+    public function section()
+    {
+        return $this->belongsToMany(Section::class, 'teachers_sections');
+    }
+
     public function getStatusAttribute($value)
     {
 

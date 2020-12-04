@@ -24,4 +24,8 @@ class Section extends Model
         return config('constants.STATUS')[$value];
     }
 
+    public function teacher()
+    {
+        return $this->belongsToMany(Teacher::class, 'teachers_sections');
+    }
 }
