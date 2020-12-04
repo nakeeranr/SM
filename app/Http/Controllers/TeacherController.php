@@ -83,9 +83,17 @@ class TeacherController extends Controller
      * @param  \App\Model\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function show(Teacher $teacher)
+    public function show($id)
     {
-        //
+        try {
+            $teacher = $this->teacher->find($id);
+            return view('teachers.show', compact('teacher'));
+        } catch (\Exception $ex) {
+            logger($ex->getMessage());
+            return redirect()->route('teachers.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Something went wrong.']);
+        }
     }
 
     /**
