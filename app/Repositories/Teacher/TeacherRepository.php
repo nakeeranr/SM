@@ -3,8 +3,8 @@
 namespace App\Repositories\Teacher;
 
 use App\Models\Teacher;
-use App\User;
 use App\Repositories\User\UserInterface;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class TeacherRepository implements TeacherInterface
@@ -14,7 +14,7 @@ class TeacherRepository implements TeacherInterface
     {
         $this->teacher = $teacher;
         $this->user = $user;
-        $this->userModel=$userModel;
+        $this->userModel = $userModel;
     }
 
     public function getAll()
@@ -29,7 +29,9 @@ class TeacherRepository implements TeacherInterface
     }
 
     public function find($id)
-    {}
+    {
+        return $this->teacher->findOrFail($id);
+    }
 
     public function create($request)
     {
@@ -53,7 +55,23 @@ class TeacherRepository implements TeacherInterface
     }
 
     public function update($request, $id)
-    {}
+    {
+        $teacher = $this->teacher->findOrFail($id);
+
+        $this->buildObject($request, $teacher);
+
+        $teacher->updated_by = Auth::id();
+
+        $user = $this->user->update($teacher->user_id, $request);
+
+        $teacher->user()->associate($user);
+
+        $teacher->save();
+
+        $teacher->section()->sync($request->get('sections'));
+
+        return $teacher;
+    }
 
     private function buildObject($request, $teacher)
     {
@@ -89,9 +107,17 @@ class TeacherRepository implements TeacherInterface
 
         $teacher->organization_id = $request->get('organization_id');
 
+        $teacher->subject = $request->get('subject');
+
     }
 
     public function delete($id)
-    {}
+    {
+        $teacher = $this->teacher->findOrFail($id);
+
+        $teacher->section()->detach();
+
+        $teacher->delete();
+    }
 
 }

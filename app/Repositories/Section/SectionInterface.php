@@ -13,4 +13,8 @@ interface SectionInterface
     public function update($request,$id);
 
     public function delete($id);
+
+    public function getSelectedSectionsWithClassName($id);
+
+    public function getSectionsWithClassName();
 }

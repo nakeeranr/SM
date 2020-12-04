@@ -33,8 +33,8 @@ class UpdateTeacherRequest extends BaseRequest
      */
     public function rules()
     {
-        $teacher = $this->teacher->findOrFail($this->route('teachers'));
-
+        $teacher = $this->teacher->findOrFail($this->route('teacher'));
+        
         $gender_key = array_keys(config('constants.GENDER_ENUM'));
         $userStatus = array_keys(config('constants.STATUS'));
 

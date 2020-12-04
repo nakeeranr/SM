@@ -8,6 +8,7 @@ use App\Repositories\Organization\OrganizationInterface;
 use App\Repositories\Section\SectionInterface;
 use App\Repositories\Teacher\TeacherInterface;
 use App\Http\Requests\Teacher\StoreTeacherRequest;
+use App\Http\Requests\Teacher\UpdateTeacherRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -69,7 +70,7 @@ class TeacherController extends Controller
                 'alertType' => 'success',
                 'alertMessage' => 'Teacher Created Successfully.']);
         } catch (\Exception $e) {
-            dd($e->getMessage());
+            logger($e->getMessage());
             return redirect()->back()->with([
                 'alertType' => 'error',
                 'alertMessage' => 'Teacher Creation Failed.']);
@@ -93,9 +94,20 @@ class TeacherController extends Controller
      * @param  \App\Model\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function edit(Teacher $teacher)
+    public function edit($id)
     {
-        //
+        try {
+            $teacher=$this->teacher->find($id);
+            $sections = $this->section->getSectionsWithClassName();
+            $organizations = $this->organization->getAll()->pluck('name', 'id')->toArray();
+            $selectedSelections=$this->section->getSelectedSectionsWithClassName($id);
+            return view('teachers.edit', compact('sections', 'organizations','teacher','selectedSelections'));
+        } catch (\Exception $ex) {
+            logger($e->getMessage());
+            return redirect()->route('teachers.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Something went wrong.']);
+        }
     }
 
     /**
@@ -105,9 +117,20 @@ class TeacherController extends Controller
      * @param  \App\Model\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Teacher $teacher)
+    public function update(UpdateTeacherRequest $request, $id)
     {
-        //
+        try {
+            $request->merge(['roles' => $this->role->getRoleIdByName('Teacher')]);
+            $this->teacher->update($request,$id);
+            return redirect()->route('teachers.index')->with([
+                'alertType' => 'success',
+                'alertMessage' => 'Teacher Updated Successfully.']);
+        } catch (\Exception $e) {
+            dd($e->getMessage());
+            return redirect()->back()->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Teacher Updation Failed.']);
+        }
     }
 
     /**
@@ -116,8 +139,16 @@ class TeacherController extends Controller
      * @param  \App\Model\Teacher  $teacher
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Teacher $teacher)
+    public function destroy($id)
     {
-        //
+        try {
+            $this->teacher->delete($id);
+            return redirect()->route('teachers.index')->with(['alertType' => 'success',
+                'alertMessage' => 'Teacher Deleted Successfully.']);
+        } catch (\Exception $e) {
+            return redirect()->route('teachers.index')->with([
+                'alertType' => 'error',
+                'alertMessage' => 'Teacher Deletion Failed.']);
+        }
     }
 }

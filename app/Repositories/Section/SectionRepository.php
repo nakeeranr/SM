@@ -74,7 +74,6 @@ class SectionRepository implements SectionInterface
 
     public function getSectionsWithClassName()
     {
-
         $orgID = $this->user->getMyOrgIdAttribute();
         $sections = $this->section->select('id', 'section_name', 'classes_id');
         if (!empty($orgID)) {
@@ -84,6 +83,18 @@ class SectionRepository implements SectionInterface
         $sectionArray = [];
         foreach ($sections as $section) {
             $sectionArray[$section->id] = $section->classes->name . " " . $section->section_name;
+        }
+        return $sectionArray;
+    }
+
+    public function getSelectedSectionsWithClassName($teacherID)
+    {
+        $sections = $this->section->whereHas('teacher', function ($query) use ($teacherID) {
+            $query->where('teacher_id', $teacherID);
+        })->get();
+        $sectionArray = [];
+        foreach ($sections as $section) {
+            $sectionArray[]=$section->id;
         }
         return $sectionArray;
     }

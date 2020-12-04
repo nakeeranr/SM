@@ -96,6 +96,7 @@
                            <tfoot>
                            <tr>
                               <th class="font-small-2 text-uppercase">Name</th>
+                              <th class="font-small-2 text-uppercase">Section</th>
                               <th class="font-small-2 text-uppercase">Status</th>
                               <th class="font-small-2 text-uppercase">Created Date</th>
                               <th class="text-center font-small-2 text-uppercase">Actions</th>
