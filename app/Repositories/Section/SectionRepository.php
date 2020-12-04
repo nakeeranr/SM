@@ -3,14 +3,16 @@
 namespace App\Repositories\Section;
 
 use App\Models\Section;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 
 class SectionRepository implements SectionInterface
 {
 
-    public function __construct(Section $section)
+    public function __construct(Section $section, User $user)
     {
         $this->section = $section;
+        $this->user = $user;
     }
 
     public function getAll()
@@ -68,6 +70,22 @@ class SectionRepository implements SectionInterface
         $section = $this->section->findOrFail($id);
 
         $section->delete();
+    }
+
+    public function getSectionsWithClassName()
+    {
+
+        $orgID = $this->user->getMyOrgIdAttribute();
+        $sections = $this->section->select('id', 'section_name', 'classes_id');
+        if (!empty($orgID)) {
+            $sections = $sections->where('organization_id', $orgID);
+        }
+        $sections = $sections->get();
+        $sectionArray = [];
+        foreach ($sections as $section) {
+            $sectionArray[$section->id] = $section->classes->name . " " . $section->section_name;
+        }
+        return $sectionArray;
     }
 
 }

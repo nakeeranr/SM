@@ -10,6 +10,7 @@ Route::currentRouteName() == 'permissions.index'
 || Route::currentRouteName() == 'admin-users.index'
 || Route::currentRouteName() == 'organizations.index'
 || Route::currentRouteName() == 'sections.index'
+|| Route::currentRouteName() == 'teachers.index'
 )
 <!-- BEGIN: Page Vendor JS-->
 	<script src="{{ asset('vendors/js/tables/datatable/datatables.min.js') }}"></script>
@@ -58,6 +59,8 @@ Route::currentRouteName() == 'permissions.index'
 || Route::currentRouteName() == 'org-admin.edit'
 || Route::currentRouteName() == 'sections.create'
 || Route::currentRouteName() == 'sections.edit'
+|| Route::currentRouteName() == 'teachers.create'
+|| Route::currentRouteName() == 'teachers.edit'
 )
 	<script src="{{ asset('vendors/js/pickers/pickadate/picker.js') }}"></script>
 	<script src="{{ asset('vendors/js/pickers/pickadate/picker.date.js') }}"></script>

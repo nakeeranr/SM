@@ -16,6 +16,7 @@
 || Route::currentRouteName() == 'organizations.index'
 || Route::currentRouteName() == 'roles.index'
 || Route::currentRouteName() == 'sections.index'
+|| Route::currentRouteName() == 'teachers.index'
 )
 
 <!-- BEGIN: Vendor CSS-->
@@ -34,6 +35,8 @@
 || Route::currentRouteName() == 'permissions.edit'
 || Route::currentRouteName() == 'sections.create'
 || Route::currentRouteName() == 'sections.edit'
+|| Route::currentRouteName() == 'teachers.create'
+|| Route::currentRouteName() == 'teachers.edit'
 )
 <link rel="stylesheet" type="text/css" href="{{ asset('vendors/css/pickers/pickadate/pickadate.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('css/plugins/forms/validation/form-validation.css') }}">

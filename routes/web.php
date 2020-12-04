@@ -40,4 +40,6 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('org-admin', 'SchoolAdminUserController');
 
     Route::get('/getClassDetailsMappedWithOrg','SectionController@getClassDetailsMappedWithOrg')->name('getClassDetailsMappedWithOrg');
+
+    Route::resource('teachers','TeacherController');
 });

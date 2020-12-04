@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Model;
 use App\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SchoolAdminUser extends Model
 {
@@ -12,38 +12,44 @@ class SchoolAdminUser extends Model
 
     protected $dates = ['deleted_at'];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function organization(){
-        return $this->belongsTo(Organization::class); 
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class);
     }
 
-    public function getStatusAttribute($value) {
+    public function getStatusAttribute($value)
+    {
 
         return config('constants.STATUS')[$value];
     }
 
-    public function getDobAttribute($value) {
+    public function getDobAttribute($value)
+    {
 
         return date('d F, Y', strtotime($value));
     }
 
-    public function getFullNameAttribute() {
+    public function getFullNameAttribute()
+    {
 
         return $this->first_name . ' ' . $this->last_name;
     }
 
-    public function getGenderAttribute($value) {
-        
+    public function getGenderAttribute($value)
+    {
+
         return config('constants.GENDER_ENUM')[$value];
     }
 
-    public function getCreatedAtAttribute($value) {
+    public function getCreatedAtAttribute($value)
+    {
 
         return date('d F, Y', strtotime($value));
     }
-
 
 }

@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Teacher;
+use App\Repositories\Organization\OrganizationInterface;
+use App\Repositories\Section\SectionInterface;
+use App\Repositories\Teacher\TeacherInterface;
 use Illuminate\Http\Request;
 
 class TeacherController extends Controller
@@ -12,9 +15,18 @@ class TeacherController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct(TeacherInterface $teacher, SectionInterface $section, OrganizationInterface $organization)
+    {
+        $this->teacher = $teacher;
+        $this->section = $section;
+        $this->organization = $organization;
+    }
+
     public function index()
     {
-        //
+        $teachers = $this->teacher->getAll();
+        return view('teachers.index', compact('teachers'));
     }
 
     /**
@@ -24,7 +36,16 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        try {
+            $sections = $this->section->getSectionsWithClassName();
+            $organizations = $this->organization->getAll()->pluck('name', 'id')->toArray();
+            return view('teachers.create', compact('sections', 'organizations'));
+        } catch (\Exception $ex) {
+            dd($ex->getMessage());
+            return redirect()->back()->with([
+                'alertType' => 'failure',
+                'alertMessage' => 'Something went wrong.']);
+        }
     }
 
     /**
@@ -35,7 +56,7 @@ class TeacherController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**

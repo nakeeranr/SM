@@ -80,6 +80,14 @@
         </li>
         @endrole
 
+        @role(['Administrator','School Administrator'])
+        <li class="@if (str_contains(Route::currentRouteName(), 'teachers')) active @endif nav-item">
+            <a href="{{ route('teachers.index') }}"><i class="menu-livicon" data-icon="Users"></i>
+            <span class="menu-item" data-i18n="Permissions">Teacher</span>
+            </a>
+        </li>
+        @endrole
+
         </ul>
       </div>
     </div>
