@@ -3,18 +3,18 @@
 namespace App\Http\Controllers;
 
 
-use App\Http\Requests\Organization\StoreOrganizationRequest;
-use App\Http\Requests\Organization\UpdateOrganizationRequest;
+use App\Http\Requests\Student\StoreStudentRequest;
+use App\Http\Requests\Student\UpdateStudentRequest;
 use App\Models\Classes;
-use App\Repositories\Organization\OrganizationInterface;
+use App\Repositories\Student\StudentInterface;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class StudentController extends Controller
 {
-    public function __construct(OrganizationInterface $organization, Classes $classes)
+    public function __construct(StudentInterface $student, Classes $classes)
     {
-        $this->organization = $organization;
+        $this->student = $student;
         $this->classes = $classes;
     }
     /**
