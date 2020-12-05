@@ -9,4 +9,6 @@ interface UserInterface
     public function create($request);
 
     public function update($id,$request);
+
+    public function getUserFullName($userId,$userRole);
 }

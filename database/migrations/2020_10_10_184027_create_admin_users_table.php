@@ -21,7 +21,7 @@ class CreateAdminUsersTable extends Migration
 
             $table->string('first_name');
             $table->string('last_name')->nullable();
-            $table->string('user_name')->nullable();
+            
             $table->string('phone_number', 16)->nullable();
             $table->date('dob')->nullable();
             $table->tinyInteger('gender')->nullable()->comment("0 = Male, 1 = Female, 2 = Other");

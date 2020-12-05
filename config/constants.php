@@ -1,6 +1,11 @@
 <?php
 
 return [
+    'Homepage'=>[
+        'administrator'=>'/home',
+        'school-administrator'=>'org-admin'
+    ],
+
     'STATUS' => [
         0 => 'Inactive',
         1 => 'Active',
@@ -52,7 +57,7 @@ return [
             'userRelation' => 'admin',
         ],
         'school-administrator' => [
-            'userRelation' => 'schoolAdmin',
+            'userRelation' => 'schoolAdmin'
         ],
     ],
 

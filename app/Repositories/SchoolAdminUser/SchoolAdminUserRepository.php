@@ -69,8 +69,6 @@ class SchoolAdminUserRepository implements SchoolAdminUserInterface
 
         $schoolAdminUser->last_name = $request->has('last_name') ? $request->get('last_name') : null;
 
-        $schoolAdminUser->user_name = $request->has('user_name') ? $request->get('user_name') : null;
-
         $schoolAdminUser->phone_number = $request->has('phone_number') ? $request->get('phone_number') : null;
 
         $schoolAdminUser->gender = $request->has('gender') ? $request->get('gender') : null;

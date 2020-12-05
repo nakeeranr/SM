@@ -25,7 +25,7 @@ class CreateTeachersTable extends Migration
             //personal information
             $table->string('first_name');
             $table->string('last_name')->nullable();
-            $table->string('user_name')->nullable();
+           
             $table->string('phone_number', 16)->nullable();
             $table->date('dob')->nullable();
             $table->string('emailID')->nullable();

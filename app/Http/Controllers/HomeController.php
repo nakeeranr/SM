@@ -21,8 +21,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
+        $loggedInUserRole=$request->user()->roles[0]->slug_name;
+        $redirectionURL=config('constants.Homepage.'. $loggedInUserRole);
+        if(!empty($redirectionURL) && $redirectionURL!='/home'){
+            return redirect()->to($redirectionURL);
+        }
         return view('home');
     }
 }

@@ -79,8 +79,6 @@ class TeacherRepository implements TeacherInterface
 
         $teacher->last_name = $request->has('last_name') ? $request->get('last_name') : null;
 
-        $teacher->user_name = $request->has('user_name') ? $request->get('user_name') : null;
-
         $teacher->phone_number = $request->has('phone_number') ? $request->get('phone_number') : null;
 
         $teacher->gender = $request->has('gender') ? $request->get('gender') : null;

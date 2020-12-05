@@ -26,7 +26,7 @@ class SchoolAdminUserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $schoolAdminUser = $this->schoolAdminUser->getAll();
         return view('school_admin.index', compact('schoolAdminUser'));

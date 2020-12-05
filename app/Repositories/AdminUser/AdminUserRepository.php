@@ -69,8 +69,6 @@ class AdminUserRepository implements AdminUserInterface
 
         $adminUser->last_name = $request->has('last_name') ? $request->get('last_name') : null;
 
-        $adminUser->user_name = $request->has('user_name') ? $request->get('user_name') : null;
-
         $adminUser->phone_number = $request->has('phone_number') ? $request->get('phone_number') : null;
 
         $adminUser->gender = $request->has('gender') ? $request->get('gender') : null;

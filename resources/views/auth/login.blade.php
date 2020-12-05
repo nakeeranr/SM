@@ -29,19 +29,19 @@
                                 </div>
                                 <div class="divider">
                                     <div class="divider-text text-uppercase text-muted"><small>or login with
-                                            email</small>
+                                            Username</small>
                                     </div>
                                 </div>
                                 <form method="POST" action="{{ route('login') }}">
 
                                 @csrf
                                     <div class="form-group mb-50">
-                                        <label class="text-bold-600" for="exampleInputEmail1">{{ __('E-Mail Address') }}</label>
+                                        <label class="text-bold-600" for="exampleInputEmail1">Username</label>
 
-                                        <input id="email" type="email" name="email" class="form-control @error('email') is-invalid @enderror"
-                                            placeholder="Email address" value="{{ old('email') }}" required autocomplete="email" autofocus/>
+                                        <input id="username" type="text" name="username" class="form-control @error('username') is-invalid @enderror"
+                                            placeholder="User Name" value="{{ old('username') }}" required autocomplete="username" autofocus/>
 
-                                        @error('email')
+                                        @error('username')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>

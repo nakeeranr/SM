@@ -73,9 +73,10 @@
                                             @include('partials._formElements', [ 'type' => 'text', 
                                             'field_name' => 'user_name', 
                                             'pname' => 'User Name',
-                                            'val' => $adminUser->user_name,
+                                            'val' => $adminUser->user->user_name,
                                             'is_disabled' => '',
-                                            'is_required' => ''
+                                            'is_required' => '',
+                                            'is_disabled' => 'readonly'
                                             ])
                                         </div>
 
